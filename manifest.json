@@ -1,0 +1,12 @@
+{
+    "name": "Notebox",
+    "description": "Take quick notes in Chrome using this simple notepad",
+    "version": "1.0",
+    "manifest_version": 3,
+
+    "action": {
+        "default_popup": "popup.html"
+    }
+
+
+}
