@@ -1,10 +1,14 @@
-const saveButton = document.querySelector("save");
+let saveButton = document.querySelector(".save");
+
+
 saveButton.addEventListener("click", () => {
-  chrome.storage.local.set({note: saveButton.value}, function() {
-    console.log('Saved to db ' + value);
+  console.log("Message Saved");
+  alert("This works");
+  chrome.storage.local.set({note: saveButton.value}, () => {
+    console.log('Saved to db ');
   });
 
-  chrome.storage.local.get(['note'], function(result) {
+  chrome.storage.local.get(['note'], (result) => {
     saveButton.value = result;
   });
 });
