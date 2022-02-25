@@ -10,6 +10,7 @@
     "background": {
         "service_worker": "popup.js"
     },
+    
     "permissions": ["storage"]
 
 
