@@ -1,37 +1,28 @@
-let textarea = document.querySelector(".main");
-let saved = document.querySelector(".saved");
 
-showSavedText();
-inactive = 2;
-setInterval(displaySavedMessage, 300);
+const textarea = document.querySelector(".main");
+const saved = document.querySelector(".saved");
+let timer;
+
+getSavedText();
 
 window.addEventListener("keyup", saveText);
 window.addEventListener("keydown", keyBeingPressed);
 
-
 function saveText(){
-    let userText = textarea.value;
-    localStorage.setItem("data", userText);
-    localStorage.setItem()
-    inactive = 0;
-}
+    localStorage.setItem("data", textarea.value);
 
-function displaySavedMessage(){
-    if (inactive == 3){
-        saved.textContent = "Saved note"
-        inactive = 0;
-    }
-    else{
-        inactive += 1;
-    }
-
+    clearTimeout(timer)
+    timer = setTimeout(displaySaveText, 800);
 }
 
 function keyBeingPressed(){
-    inactive = 0;
     saved.textContent = "..."
 }
 
-function showSavedText(){
+function getSavedText(){
     textarea.value = localStorage.getItem("data");
+}
+
+function displaySaveText(){
+    saved.textContent = "Saved note";
 }
