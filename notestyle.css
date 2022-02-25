@@ -1,4 +1,29 @@
-.main {
+@import url('https://fonts.googleapis.com/css2?family=Frijole&family=Mochiy+Pop+One&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    font-family: 'Mochiy Pop One', sans-serif;
+    margin-bottom: 10px;
+}
+
+
+body {
+    background-color: #ccdbfd ;
+    border: 0.3rem solid #abc4ff;
+    padding: 10px 10px;
+}
+
+.notepad {
+    background-color: #edf2fb;
     height: 120px;
     font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.savedText {
+    font-style: italic;
 }

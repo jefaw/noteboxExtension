@@ -1,47 +1,55 @@
-const textarea = document.querySelector(".main");
-const saved = document.querySelector(".saved");
+const textarea = document.querySelector(".notepad");
+const saved = document.querySelector(".savedText");
 let displayMessage = false;
 let timer;
 
 getSavedText();
-setDate()
+getLastSavedDate();
 
 window.addEventListener("keyup", saveText);
 window.addEventListener("keydown", keyBeingPressed);
 
 function setDate(){
   let date = new Date();
-  monthArray = [
+  const monthArray = [
     "January", "Febuary", "March", "April", "May", "June", "July", "August", 
     "September", "October", "November", "December"
   ];
+  let hours24 = date.getHours();
+  // Converts 24 hour time to 12 hour time
+  let hours = (hours24 % 12) || 12;
+  const amOrPm = hours24 >= 12 ? 'pm' : 'am';
 
   date = {
     year: 1900 + date.getYear(),
     month: monthArray[date.getMonth()],
     day: date.getDate(),
-    hours: date.getHours(),
+    hours: hours,
     minutes: date.getMinutes(),
-    seconds: date.getSeconds()
+    amOrPm: amOrPm
   }
-  saved.textContent = `Last Saved: ${date.month} ${date.day}, ${date.year}:${date.hours}:${date.minutes}:${date.seconds}`;
-
+  return `Last Saved: ${date.month} ${date.day}, ${date.year}, ${date.hours}:${date.minutes} ${amOrPm}`;
 }
 
 function saveText(){
   const userText = textarea.value;
   localStorage.setItem("data", userText);
+  localStorage.setItem("date", setDate())
   clearTimeout(timer)
   timer = setTimeout(displaySaveText, 550);
 }
 
 function keyBeingPressed(){
-    keydown = true;
-    saved.textContent = "..."
+  keydown = true;
+  saved.textContent = "..."
 }
 
 function getSavedText(){
-    textarea.value = localStorage.getItem("data");
+  textarea.value = localStorage.getItem("data");
+}
+
+function getLastSavedDate(){
+  saved.textContent = localStorage.getItem("date");
 }
 
 function displaySaveText(){
