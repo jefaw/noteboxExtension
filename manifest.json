@@ -5,12 +5,15 @@
     "manifest_version": 3,
 
     "action": {
-        "default_popup": "popup.html"
+        "default_popup": "popup.html",
+        "default_icon": {
+            "48": "/images/nb_icon482.png"
+        }
     },
 
     "background": {
         "service_worker": "background.js"
     },
-    
+
     "permissions": ["storage"]
 }
