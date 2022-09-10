@@ -75,8 +75,8 @@ document.querySelector("#link").addEventListener('click', (evt) => {
 function restore_options() {
     // Use default value color = 'red'
     chrome.storage.sync.get({
-        bgcolor: 'red',
-        textareabg: 'red',
+        bgcolor: 'f94d9f', //pink logo colour
+        textareabg: 'white',
     }, function(items) {
         var b = document.body;
         b.style.backgroundColor = items.bgcolor;
