@@ -29,13 +29,13 @@ function setDate() {
         minutes: date.getMinutes(),
         amOrPm: amOrPm
     }
-    return `Last Saved: ${date.month} ${date.day}, ${date.year}, ${date.hours}:${date.minutes} ${amOrPm}`;
+    return `${date.month} ${date.day}, ${date.year}, ${date.hours}:${date.minutes} ${amOrPm}`;
 }
 
 function saveText() {
     const userText = textarea.value;
     localStorage.setItem("data", userText);
-    localStorage.setItem("date", setDate())
+    localStorage.setItem("date", "Last Saved: "+ setDate())
     clearTimeout(timer)
     timer = setTimeout(displaySaveText, 550);
 }
@@ -63,6 +63,12 @@ document.querySelector('#go-to-options').addEventListener('click', function() {
     } else {
         window.open(chrome.runtime.getURL('options.html'));
     }
+});
+//download txt file
+document.querySelector("#link").addEventListener('click', (evt) => {
+    const txt = document.querySelector('.notepad').value;
+    evt.target.href = 'data:text/plain;charset=utf-11,' + encodeURIComponent(txt);
+    evt.target.download = setDate();
 });
 
 function restore_options() {

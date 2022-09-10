@@ -30,3 +30,8 @@ body {
 .savedText {
     font-style: italic;
 }
+
+.download-button {
+    text-decoration: none;
+    color: black;
+}
