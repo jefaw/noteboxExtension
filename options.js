@@ -1,6 +1,6 @@
 var bgcolour;
-var
-    defaultColour = "#0000ff";
+var defaultColour = "#0000ff";
+
 window.addEventListener("load", startup, false);
 
 function startup() {
@@ -22,6 +22,7 @@ function updateFirst(event) {
 function updateAll(event) {
     chrome.storage.sync.set({
         bgcolor: event.target.value,
+
     }, function() {
         // Update status to let user know options were saved.
         var status = document.getElementById('status');
