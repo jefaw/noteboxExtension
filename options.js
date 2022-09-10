@@ -1,14 +1,56 @@
 var bgcolour;
-var
-    defaultColour = "#0000ff";
+var toggledark;
+var isDark = true;
+var defaultColour = "#0000ff";
 window.addEventListener("load", startup, false);
 
 function startup() {
+    
     bgcolour = document.querySelector("#bgcolour");
     bgcolour.value = defaultColour;
     bgcolour.addEventListener("input", updateFirst, false);
     bgcolour.addEventListener("change", updateAll, false);
     bgcolour.select();
+
+    toggledark = document.querySelector("#darkMode");
+    toggledark.addEventListener("click", dark,false);
+
+
+}
+
+//Checks boolean isDark and saves "textareabg" to chrome storage accordingly
+function dark(){
+    
+    console.log(document.body.style.backgroundColor);
+
+    isDark = !isDark;
+    if (isDark){
+        document.body.style.background = "000000"; //change background depending on 
+        chrome.storage.sync.set({
+            textareabg: '#FFFFFF',
+        }, function() {
+            // Update status to let user know options were saved.
+            var status = document.getElementById('status');
+            status.textContent = 'Options saved.';
+            setTimeout(function() {
+                status.textContent = '';
+            }, 50);
+        });
+    }
+    else{
+        document.body.style.background = "#946a82";
+        chrome.storage.sync.set({
+            textareabg: '#000000',
+        }, function() {
+            // Update status to let user know options were saved.
+            var status = document.getElementById('status');
+            status.textContent = 'Options saved.';
+            setTimeout(function() {
+                status.textContent = '';
+            }, 50);
+        });
+    }
+    
 }
 
 function updateFirst(event) {
@@ -22,6 +64,7 @@ function updateFirst(event) {
 function updateAll(event) {
     chrome.storage.sync.set({
         bgcolor: event.target.value,
+
     }, function() {
         // Update status to let user know options were saved.
         var status = document.getElementById('status');

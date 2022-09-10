@@ -65,13 +65,24 @@ document.querySelector('#go-to-options').addEventListener('click', function() {
     }
 });
 
+//gets the currently stored values from the chrome storage . EXAMPLE: updates colours
 function restore_options() {
     // Use default value color = 'red'
     chrome.storage.sync.get({
         bgcolor: 'red',
+        textareabg: 'red',
     }, function(items) {
         var b = document.body;
         b.style.backgroundColor = items.bgcolor;
+        var n = document.querySelector(".notepad");
+        console.log(items.textareabg);
+        n.style.backgroundColor = items.textareabg;
+        if (items.textareabg == "#FFFFFF"){
+            n.style.color = "#000000";
+        }
+        else{
+            n.style.color = "#FFFFFF";
+        }
     });
 }
 
