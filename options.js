@@ -1,11 +1,9 @@
 var bgcolour;
 var toggledark;
 var isDark;
-chrome.storage.sync.get({
-                isdark: false,
-            }, function(items) {
-                isDark= items.isdark;
-            });
+
+console.log("isDark = ", isDark );
+document.querySelector("#darkMode").checked = isDark;
             
 var defaultColour = "#000000";
 window.addEventListener("load", startup, false);
@@ -18,17 +16,16 @@ function startup() {
     bgcolour.select();
 
     toggledark = document.querySelector("#darkMode");
-    toggledark.addEventListener("click", dark, false);
-
-
+    // toggledark.checked = isDark;
+    toggledark.addEventListener("change", dark, false);
 }   
 
 //Checks boolean isDark and saves "textareabg" to chrome storage accordingly
 function dark(){
     
     console.log(document.body.style.backgroundColor);
-
-    isDark = !isDark;
+    isDark = toggledark.checked;
+    // isDark = !isDark;
     if (isDark){
         chrome.storage.sync.set({
             textareabg: '#000000',
@@ -93,6 +90,20 @@ function restore_options() {
     }, function(items) {
         var p = document.querySelector("body");
         p.style.backgroundColor = items.bgcolor;
+    });
+
+    chrome.storage.sync.get({
+        isdark: false,
+    }, function(items) {
+        isDark = items.isdark;
+        document.querySelector("#darkMode").checked = isDark;
+    });
+    
+    chrome.storage.sync.get({
+        bgcolor: '#123123',
+    }, function(items) {
+        const colorPicker = document.querySelector("#bgcolour");
+        colorPicker.value = items.bgcolor;
     });
 }
 
