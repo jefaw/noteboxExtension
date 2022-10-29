@@ -8,7 +8,7 @@
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
-            "48": "/images/nb_icon482.png"
+            "48": "/images/notebox_icon_blue.png"
         }
     },
 
