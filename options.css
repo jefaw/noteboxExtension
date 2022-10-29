@@ -1,0 +1,29 @@
+.Container {
+  height: 100vh;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+.Options {
+  background-color: rgb(255, 255, 255);
+  padding: 20px 40px;
+  /* border: 1px solid black; */
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+}
+
+.Options h1 {
+  text-align: center;
+}
+
+.Options button {
+  font-size: 1.2em;
+}
+
+.Options p {
+  font-size: 1.2rem;
+}
+
+.Options label {
+  font-size: 1.2em;
+}
