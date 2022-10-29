@@ -6,6 +6,9 @@ chrome.storage.sync.get({
             }, function(items) {
                 isDark= items.isdark;
             });
+
+const isDark = querySelector("#darkMode").checked;
+checkbox.addEventListener("change", dark());
             
 var defaultColour = "#000000";
 window.addEventListener("load", startup, false);
@@ -18,17 +21,13 @@ function startup() {
     bgcolour.select();
 
     toggledark = document.querySelector("#darkMode");
-    toggledark.addEventListener("click", dark, false);
-
-
+    isDark = toggledark.checked;
 }   
 
 //Checks boolean isDark and saves "textareabg" to chrome storage accordingly
 function dark(){
     
     console.log(document.body.style.backgroundColor);
-
-    isDark = !isDark;
     if (isDark){
         chrome.storage.sync.set({
             textareabg: '#000000',
