@@ -27,8 +27,14 @@
   font-size: 1.2em;
 }
 
-.toggle {
+.darkmode-container {
+  display: flex;
+  align-items: center;
   margin-top: 15px;
+}
+
+.darkmode-toggle {
+  margin-left: 3px;
 }
 
 #changeSaved {

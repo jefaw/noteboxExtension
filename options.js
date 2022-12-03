@@ -5,10 +5,10 @@ const DEFAULT_COLOR = '#5caed6'; // Used to set starting notepad bg
 const background = document.querySelector(".background");
 const colorPicker = document.querySelector("#colorPicker");
 const changeSaved = document.querySelector('#changeSaved');
-const darkmode = document.querySelector("#darkMode");
+const darkmode = document.querySelector("#darkmode");
 
 colorPicker.addEventListener("change", setNoteboxColor, false);
-darkmode.addEventListener("change", setDarkMode, false);  
+darkmode.addEventListener("change", setDarkMode, false);
 
 //Checks boolean isDark and saves "notepadbg" to chrome storage accordingly
 function setDarkMode () {
@@ -45,7 +45,7 @@ function restore_options() {
     });
     // Restores the darkmode checkbox
     chrome.storage.sync.get({isdark: false}, items => {
-        document.querySelector("#darkMode").checked = items.isdark;
+        darkmode.checked = items.isdark;
     });
 }
 
