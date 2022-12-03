@@ -1,113 +1,53 @@
-var bgcolour;
-var toggledark;
-var isDark;
 const BLACK = "#000000";
 const WHITE = "#FFFFFF";
-const startingColor = '#5caed6'; // Used to set starting notepad bg
+const DEFAULT_COLOR = '#5caed6'; // Used to set starting notepad bg
 
-console.log("isDark = ", isDark );
-document.querySelector("#darkMode").checked = isDark;
-            
-var defaultColour = "#000000";
-window.addEventListener("load", startup, false);
+const background = document.querySelector(".background");
+const colorPicker = document.querySelector("#colorPicker");
+const changeSaved = document.querySelector('#changeSaved');
+const darkmode = document.querySelector("#darkMode");
 
-function startup() {
-    bgcolour = document.querySelector("#bgcolour");
-    bgcolour.value = BLACK;
-    bgcolour.addEventListener("input", updateFirst, false);
-    bgcolour.addEventListener("change", updateAll, false);
-    bgcolour.select();
-    toggledark = document.querySelector("#darkMode");
-    toggledark.addEventListener("change", dark, false);
-}   
+colorPicker.addEventListener("change", setNoteboxColor, false);
+darkmode.addEventListener("change", setDarkMode, false);  
 
 //Checks boolean isDark and saves "notepadbg" to chrome storage accordingly
-function dark(){
-    
-    console.log(document.body.style.backgroundColor);
-    isDark = toggledark.checked;
-    // isDark = !isDark;
-    if (isDark){
-        chrome.storage.sync.set({
-            notepadbg: WHITE,
-            isdark: true, 
-        }, function() {
-            // Update status to let user know options were saved.
-            var status = document.getElementById('status');
-            status.textContent = 'Options saved.';
-            setTimeout(function() {
-                status.textContent = '';
-            }, 1000);
-        });
+function setDarkMode () {
+    let isDark = darkmode.checked;
+    const options = {
+        notepadbg: isDark? BLACK : WHITE,
+        isdark: isDark
     }
-    else{
-        chrome.storage.sync.set({
-            notepadbg: WHITE,
-            isdark: false,
-        }, function() {
-            // Update status to let user know options were saved.
-            var status = document.getElementById('status');
-            status.textContent = 'Options saved.';
-            setTimeout(function() {
-                status.textContent = '';
-            }, 1000);
-        });
-    }
-    
+    chrome.storage.sync.set(options, () => {
+        changeSaved.textContent = 'Options saved.';
+        setTimeout(() => {
+            changeSaved.textContent = '';
+        }, 1000);
+    })   
 }
 
-function updateFirst(event) {
-    var p = document.querySelector("p");
-
-    if (p) {
-        p.style.color = event.target.value;
-    }
-}
-//saves selected background colour to chrome storage
-function updateAll(event) {
-    chrome.storage.sync.set({
-        bgcolor: event.target.value,
-
-    }, function() {
-        // Update status to let user know options were saved.
-        var status = document.getElementById('status');
-        status.textContent = 'Options saved.';
+// Saves selected bg color in color picker to chrome storage
+function setNoteboxColor(e) {
+    chrome.storage.sync.set({noteboxbg: e.target.value}, () => {
+        changeSaved.textContent = 'Options saved.';
         setTimeout(function() {
-            status.textContent = '';
-        }, 50);
-    });
-    //changes p colour just for testing
-    document.querySelectorAll("p").forEach(function(p) {
-        p.style.color = event.target.value;
+            changeSaved.textContent = '';
+        }, 1000);
     });
 }
 
-// Restores select box and checkbox state using the preferences stored in chrome.storage
-// Dynamically updates the options background depending on the selected notebox background
+// Sets the options background color and restores darkmode checkbox using chrome sync storage
+// Sync storage saves these preferences across chrome accounts
 function restore_options() {
-    // Use default value color = 'red'
-    chrome.storage.sync.get({
-        bgcolor: startingColor,
-    }, function(items) {
-        var p = document.querySelector("body");
-        p.style.backgroundColor = items.bgcolor;
+    // Sets background color and color picker color to the saved color of the notebox
+    chrome.storage.sync.get({noteboxbg: DEFAULT_COLOR}, items => {
+        background.style.backgroundColor = items.noteboxbg;
+        colorPicker.value = items.noteboxbg;
     });
-
-    chrome.storage.sync.get({
-        isdark: false,
-    }, function(items) {
-        isDark = items.isdark;
-        document.querySelector("#darkMode").checked = isDark;
-    });
-    
-    chrome.storage.sync.get({
-        bgcolor: '#123123',
-    }, function(items) {
-        const colorPicker = document.querySelector("#bgcolour");
-        colorPicker.value = items.bgcolor;
+    // Restores the darkmode checkbox
+    chrome.storage.sync.get({isdark: false}, items => {
+        document.querySelector("#darkMode").checked = items.isdark;
     });
 }
 
-
+// Once extension is loaded restore saved options
 document.addEventListener('DOMContentLoaded', restore_options);
-//document.getElementById('save').addEventListener('click',save_options);
