@@ -15,7 +15,10 @@ const notebox = document.querySelector(".notebox");
 const notepad = document.querySelector(".notepad");
 const saved = document.querySelector(".saved-text"); // Saved text message
 const optionsButton = document.querySelector(".options"); // Options button
-const startingColor = "#5caed6"; // Used to set starting notepad bg
+const downloadButton = document.querySelector(".download-link");
+const DEFAULT_COLOR = "#5caed6"; // Used to set starting notepad bg
+const BLACK = "#000000";
+const WHITE = "#FFFFFF";
 
 notepad.value = localStorage.getItem("notes"); // Set notepad txt from local storage
 saved.textContent = localStorage.getItem("lastSaved"); // Set last saved txt from local storage
@@ -34,31 +37,28 @@ optionsButton.addEventListener("click", () => {
 });
 
 // Button downloads notes into a txt file
-document.querySelector(".download-link").addEventListener("click", (evt) => {
+downloadButton.addEventListener("click", (evt) => {
     const txt = document.querySelector('.notepad').value;
     console.log(txt);
     evt.target.href = 'data:text/plain;charset=utf-11,' + encodeURIComponent(txt);
     evt.target.download = getDate();
 });
 
-// Gets the currently stored values from the chrome storage . EXAMPLE: updates colours
+// Gets the currently stored values from the chrome storage
 function restore_options() {
-    // Use default value color = 'red'
-    chrome.storage.sync.get({
-        bgcolor: startingColor, // Notebox starting bg color
-        notepadbg: '#FFFFFF', // Notepad starting bg color
-    }, function(items) {
-        notebox.style.backgroundColor = items.bgcolor;
-        var n = document.querySelector(".notepad");
-        console.log(items.notepadbg);
-        n.style.backgroundColor = items.notepadbg;
-        if (items.notepadbg == "#FFFFFF"){
-            n.style.color = "#000000";
-        }
-        else{
-            n.style.color = "#FFFFFF";
+    const getbg = {
+        noteboxbg: DEFAULT_COLOR, // Notebox starting bg color
+        notepadbg: WHITE // Notepad starting bg color
+    }
+    chrome.storage.sync.get(getbg, bg => {
+        notebox.style.backgroundColor = bg.noteboxbg;
+        notepad.style.backgroundColor = bg.notepadbg;
+        // Change text color to white if in darkmode
+        if (bg.notepadbg === BLACK) {
+            notepad.style.color = WHITE;
         }
     });
 }
 
+// Once extension is loaded restore saved options
 document.addEventListener('DOMContentLoaded', restore_options);

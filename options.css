@@ -1,41 +1,39 @@
-.Container {
+.background {
   height: 100vh;
   display: flex; 
   justify-content: center;
   align-items: center;
 }
 
-.Options {
+.options {
   background-color: rgb(255, 255, 255);
   padding: 20px 40px;
-  /* border: 1px solid black; */
   box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 }
 
-.Options h1 {
+.options h1 {
   text-align: center;
 }
 
-.Options button {
+.options button {
   font-size: 1.2em;
 }
 
-.Options p {
+.options p {
   font-size: 1.2rem;
 }
 
-.Options label {
+.options label {
   font-size: 1.2em;
-}
-
-#status {
-  margin: 5px 0;
-  margin-top: 10px;
-  font-size: 1em;
-  height: 5px;
-  font-style: italic;
 }
 
 .toggle {
   margin-top: 15px;
+}
+
+#changeSaved {
+  margin-top: 10px;
+  font-size: 1em;
+  height: 5px;
+  font-style: italic;
 }
