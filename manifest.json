@@ -6,7 +6,7 @@
     "options_page": "options.html",
 
     "action": {
-        "default_popup": "popup.html",
+        "default_popup": "notebox.html",
         "default_icon": {
             "48": "/images/notebox_icon_blue.png"
         }

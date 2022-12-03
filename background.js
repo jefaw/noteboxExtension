@@ -1,1 +1,1 @@
-/*background script */
+/* background script */

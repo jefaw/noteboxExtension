@@ -1,6 +1,9 @@
 var bgcolour;
 var toggledark;
 var isDark;
+const BLACK = "#000000";
+const WHITE = "#FFFFFF";
+const startingColor = '#5caed6'; // Used to set starting notepad bg
 
 console.log("isDark = ", isDark );
 document.querySelector("#darkMode").checked = isDark;
@@ -10,17 +13,15 @@ window.addEventListener("load", startup, false);
 
 function startup() {
     bgcolour = document.querySelector("#bgcolour");
-    bgcolour.value = defaultColour;
+    bgcolour.value = BLACK;
     bgcolour.addEventListener("input", updateFirst, false);
     bgcolour.addEventListener("change", updateAll, false);
     bgcolour.select();
-
     toggledark = document.querySelector("#darkMode");
-    // toggledark.checked = isDark;
     toggledark.addEventListener("change", dark, false);
 }   
 
-//Checks boolean isDark and saves "textareabg" to chrome storage accordingly
+//Checks boolean isDark and saves "notepadbg" to chrome storage accordingly
 function dark(){
     
     console.log(document.body.style.backgroundColor);
@@ -28,7 +29,7 @@ function dark(){
     // isDark = !isDark;
     if (isDark){
         chrome.storage.sync.set({
-            textareabg: '#000000',
+            notepadbg: WHITE,
             isdark: true, 
         }, function() {
             // Update status to let user know options were saved.
@@ -41,7 +42,7 @@ function dark(){
     }
     else{
         chrome.storage.sync.set({
-            textareabg: '#FFFFFF',
+            notepadbg: WHITE,
             isdark: false,
         }, function() {
             // Update status to let user know options were saved.
@@ -86,7 +87,7 @@ function updateAll(event) {
 function restore_options() {
     // Use default value color = 'red'
     chrome.storage.sync.get({
-        bgcolor: 'red',
+        bgcolor: startingColor,
     }, function(items) {
         var p = document.querySelector("body");
         p.style.backgroundColor = items.bgcolor;
