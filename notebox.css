@@ -1,18 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Frijole&family=Mochiy+Pop+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
 * {
     margin: 0;
     padding: 0;
 }
 
-.header {
-    /*font-family: 'Mochiy Pop One', sans-serif;*/
+.title {
     font-family: 'Poppins', sans-serif;
     margin-bottom: 2px;
     font-size: large;
 }
 
-body {
+.notebox {
     background-color: #f3ddf6;
     padding: 5px 10px;
 }
@@ -27,11 +26,16 @@ body {
     outline: none;
 }
 
-.savedText {
+.saved-text {
     font-style: italic;
+    margin-bottom: 5px;
 }
 
-.download-button {
+.download-link {
     text-decoration: none;
     color: black;
+}
+
+.notebox button {
+    padding: 2px;
 }
