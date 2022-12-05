@@ -6,6 +6,7 @@ const background = document.querySelector(".background");
 const colorPicker = document.querySelector("#colorPicker");
 const changeSaved = document.querySelector('#changeSaved');
 const darkmode = document.querySelector("#darkmode");
+const overlay = document.querySelector(".overlay");
 
 colorPicker.addEventListener("change", setNoteboxColor, false);
 darkmode.addEventListener("change", setDarkMode, false);
@@ -13,6 +14,7 @@ darkmode.addEventListener("change", setDarkMode, false);
 //Checks boolean isDark and saves "notepadbg" to chrome storage accordingly
 function setDarkMode () {
     let isDark = darkmode.checked;
+    overlay.style.backgroundColor = isDark? "rgba(0, 0, 0, 0.3)" : "";
     const options = {
         notepadbg: isDark? BLACK : WHITE,
         isdark: isDark
@@ -43,9 +45,10 @@ function restore_options() {
         background.style.backgroundColor = items.noteboxbg;
         colorPicker.value = items.noteboxbg;
     });
-    // Restores the darkmode checkbox
+    // Restores the darkmode checkbox and darkmode overlay
     chrome.storage.sync.get({isdark: false}, items => {
         darkmode.checked = items.isdark;
+        overlay.style.backgroundColor = items.isdark? "rgba(0, 0, 0, 0.3)" : "";
     });
 }
 
