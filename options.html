@@ -7,23 +7,25 @@
     </head>
 
     <body class="background">
-        <div class="options">
-            <h1>Notebox Options</h1>
-            <div class="colorpicker-container">
-                <label for="colorPicker">Background Colour: </label>
-                <input type="color" id="colorPicker">
-            </div>
-            <div class="darkmode-container"">
-                <label>Toggle Dark Mode: </label>
-                <div class="mt-transparent darkmode-toggle" style="font-size:6px;">
-                    <input id="darkmode" type="checkbox"/>
-                    <label for="darkmode"></label>
+        <div class="overlay">
+            <div class="options">
+                <h1>Notebox Options</h1>
+                <div class="colorpicker-container">
+                    <label for="colorPicker">Background Colour: </label>
+                    <input type="color" id="colorPicker">
                 </div>
+                <div class="darkmode-container"">
+                    <label>Toggle Dark Mode: </label>
+                    <div class="mt-transparent darkmode-toggle" style="font-size:6px;">
+                        <input id="darkmode" type="checkbox"/>
+                        <label for="darkmode"></label>
+                    </div>
+                </div>
+                <div id="changeSaved"></div>
+                <br>
+                <br>
             </div>
-            <div id="changeSaved"></div>
-            <br>
-            <br>
+            <script src="options.js"></script>
         </div>
-        <script src="options.js"></script>
     </body>
 </html>
